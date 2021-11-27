@@ -24,27 +24,12 @@ ethereum.on('accountsChanged', function (accounts) {
 })
 
 window.addEventListener('load', function () {
-  if (typeof window.ethereum !== 'undefined') {
-    let mmDetected = document.getElementById('mm-detected')
-    mmDetected.innerHTML = "Metamask Has Been Detected!"
-  }
-  else {
-    this.alert("You need to install Metamask!")
+  if (!window.ethereum) {
+    this.alert("You need to install Metamask!");
+    return;
   }
   getInfo();
 })
-
-const mmEnable = document.getElementById('mm-connect')
-var accounts;
-mmEnable.onclick = async () => {
-  accounts = await ethereum.request({
-    method:
-      'eth_requestAccounts'
-  });
-
-  const mmCurrentAccount = document.getElementById('mm-current-account');
-  mmCurrentAccount.innerHTML = accounts[0];
-}
 
 async function getInfo() {
   var SCResponse;
